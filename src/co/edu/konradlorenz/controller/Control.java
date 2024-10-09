@@ -11,10 +11,6 @@ public class Control {
 	protected EstudianteJugador objEstudianteJugador = new EstudianteJugador();
 	protected Estacion objEstacion = new Estacion();
 
-	protected LocalDateTime fechaHoraActual = LocalDateTime.now(); //Formato de LocalDate Time: YYYY-MM-DDTHH:MM:SS
-	protected DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"); //Formato más agradable a la vista.
-	protected String actualTime = fechaHoraActual.format(formato);
-
 	public void run() {
 		byte i = 0;
 		do {
@@ -55,7 +51,8 @@ public class Control {
 		long id,cod;
 		n = Ventana.pedirString("Ingrese el nombre");
 		id = Long.parseLong(Ventana.pedirString("Ingrese la identificación"));
-		f = Ventana.pedirString("Ingrese la fecha");
+		//f = Ventana.pedirString("Ingrese la fecha"); //Fecha manual
+		f = getActualTime(); //Fecha automática
 		cod = Long.parseLong(Ventana.pedirString("Ingrese el código"));
 
 		objEstudianteJugador = new EstudianteJugador(n, id, f, cod); //Se crea el EstudianteJugador
@@ -147,5 +144,11 @@ public class Control {
     	Ventana.mostrarMensaje("Los ingresos totales son: $" + total);
     }
 	
+	private String getActualTime(){
+		LocalDateTime fechaHoraActual = LocalDateTime.now(); //Formato de LocalDate Time: YYYY-MM-DDTHH:MM:SS
+		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"); //Formato más agradable a la vista.
+		String actualTime = fechaHoraActual.format(formato);
+		return actualTime;
+	}
 
 }
