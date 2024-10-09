@@ -13,10 +13,6 @@ public class Control {
 	protected Estacion objEstacion = new Estacion();
 	protected ArrayList<Estacion> listaEstaciones = new ArrayList<Estacion>();
 
-	protected LocalDateTime fechaHoraActual = LocalDateTime.now(); //Formato de LocalDate Time: YYYY-MM-DDTHH:MM:SS
-	protected DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"); //Formato más agradable a la vista.
-	protected String actualTime = fechaHoraActual.format(formato);
-
 	public void run() {
 		byte i = 0;
 		do {
@@ -91,8 +87,9 @@ public class Control {
 		long id,cod;
 		n = Ventana.pedirString("Ingrese el nombre");
 		id = Long.parseLong(Ventana.pedirString("Ingrese la identificación"));
-		f = Ventana.pedirString("Ingrese lA fecha");
-		cod = Long.parseLong(Ventana.pedirString("Ingrese el codigo"));
+		//f = Ventana.pedirString("Ingrese la fecha"); //Fecha manual
+		f = getActualTime(); //Fecha automática
+		cod = Long.parseLong(Ventana.pedirString("Ingrese el código"));
 
 		EstudianteJugador estudianteJugador = new EstudianteJugador(n, id, f, cod);
 		return estudianteJugador;
@@ -163,13 +160,15 @@ public class Control {
         String nombreJugador = Ventana.pedirString("Ingrese el nombre del jugador para agregar tiempo");
         
         if(objEstacion.listaJugadores().getNombre().equals(nombreJugador)) {
-            objEstudianteJugador.setTiempo(Integer.parseInt(Ventana.pedirString("Ingrese el tiempo a agregar en minutos")));
+			int tiempoActual = objEstudianteJugador.getTiempo();
+			int tiempoNuevo = Integer.parseInt(Ventana.pedirString("Ingrese el tiempo a agregar en minutos"));
+            objEstudianteJugador.setTiempo(tiempoActual + tiempoNuevo);
             Ventana.mostrarMensaje("Tiempo agregado correctamente.");
         }else {
         	System.out.println("El estudiante no existe en la lista.");
         	
         } 
-        System.out.println(objEstacion.listaJugadores());
+        //System.out.println(objEstacion.listaJugadores()); //No hace falta mostrar toda lista
     }
 
     
@@ -226,5 +225,11 @@ public class Control {
     	Ventana.mostrarMensaje("Los ingresos totales son: $" + total);
     }
 	
+	private String getActualTime(){
+		LocalDateTime fechaHoraActual = LocalDateTime.now(); //Formato de LocalDate Time: YYYY-MM-DDTHH:MM:SS
+		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"); //Formato más agradable a la vista.
+		String actualTime = fechaHoraActual.format(formato);
+		return actualTime;
+	}
 
 }
