@@ -1,0 +1,62 @@
+package co.edu.konradlorenz.controller;
+
+import co.edu.konradlorenz.model.*;
+import co.edu.konradlorenz.view.Ventana;
+
+public class Control {
+	
+	protected EstudianteJugador objEstudianteJugador = new EstudianteJugador();
+	protected Estacion objEstacion = new Estacion();
+
+	public void run() {
+		byte i = 0;
+		do {
+			i = Ventana.mostrarMenu();
+			switch(i) {
+				case 0:
+					Ventana.mostrarMensaje("Saliendo...");
+					break;
+				case 1:
+					Ventana.mostrarMensaje("--Asignar jugador a estacion--");
+					break;
+				case 2:
+					Ventana.mostrarMensaje("--Agregar tiempo a jugador--");
+					break;
+				case 3:
+					Ventana.mostrarMensaje("--Cambiar jugador a estación--");
+					break;
+				case 4:
+					Ventana.mostrarMensaje("--Registrar salida de jugador--");
+					break;
+				case 5:
+					Ventana.mostrarMensaje("--Mostrar ingresos totales--");
+					break;
+			}
+		}while(i != 0);
+		
+	}
+
+	public void crearJugadorConstructor() {
+		String n, f;
+		long id,cod;
+		n = Ventana.pedirString("nombre");
+		id = Long.parseLong(Ventana.pedirString("identificación"));
+		f = Ventana.pedirString("fecha");
+		cod = Long.parseLong(Ventana.pedirString("codigo"));
+
+		objEstudianteJugador = new EstudianteJugador(n, id, f, cod);
+		objEstacion.setListaJugadores(objEstudianteJugador);
+	}
+
+	/*
+	public void crearJugadorSetter() {
+		objEstudianteJugador.setNombre(Ventana.pedirString("nombre"));
+		objEstudianteJugador.setId(Long.parseLong(Ventana.pedirString("identificación")));
+		objEstudianteJugador.setFecha(Ventana.pedirString("fecha"));
+		objEstacion.setListaJugadores(objEstudianteJugador);
+	}
+	*/
+	
+	
+
+}

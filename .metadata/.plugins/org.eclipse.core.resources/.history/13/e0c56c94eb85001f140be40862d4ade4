@@ -1,0 +1,34 @@
+package co.edu.konradlorenz.view;
+
+import java.util.Scanner;
+
+public class Ventana {
+
+	private static Scanner leer = new Scanner(System.in);
+
+	public static byte mostrarMenu() {
+		System.out.println("- - - - Centro de Videojuegos - - - -");
+		System.out.println("- 0. Salir                          -");
+		System.out.println("- 1. Asignar jugador a estación     -");
+		System.out.println("- 2. Agregar tiempo a jugador       -");
+		System.out.println("- 3. Cambiar jugador a estación     -");
+		System.out.println("- 4. Registrar salida de jugador    -");
+		System.out.println("- 5. Mostrar ingresos totales       -");
+		System.out.println("- - - - - - - - - - - - - - - - - - -");
+		System.out.println("Ingrese la opción");
+		leer.next();
+		byte opcion = leer.nextByte();
+		return opcion;
+	}
+
+	public static void mostrarMensaje(String mensaje) {
+		System.out.println(mensaje);
+	}
+
+	public static String pedirString(String info) {
+		System.out.println("Ingrese "+info+": ");
+		String dato = leer.nextLine();
+		return dato;
+	}
+	
+}

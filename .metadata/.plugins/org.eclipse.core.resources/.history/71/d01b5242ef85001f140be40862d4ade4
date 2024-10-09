@@ -1,0 +1,126 @@
+package co.edu.konradlorenz.controller;
+
+import co.edu.konradlorenz.model.*;
+import co.edu.konradlorenz.view.Ventana;
+
+public class Control {
+	
+	protected EstudianteJugador objEstudianteJugador = new EstudianteJugador();
+	protected Estacion objEstacion = new Estacion();
+
+	public void run() {
+		byte i = 0;
+		do {
+			i = Ventana.mostrarMenu();
+			
+			switch(i) {
+				case 0:
+					Ventana.mostrarMensaje("Saliendo...");
+					break;
+				case 1:
+					crearJugadorConstructor();
+					Ventana.mostrarMensaje("--Asignar jugador a estacion--");
+					asignarJugadorAEstacion();
+					break;
+				case 2:
+					Ventana.mostrarMensaje("--Agregar tiempo a jugador--");
+					agregarTiempoAJugador();
+					break;
+				case 3:
+					Ventana.mostrarMensaje("--Cambiar jugador a estación--");
+					//cambiarJugadorDeEstacion();
+					break;
+				case 4:
+					Ventana.mostrarMensaje("--Registrar salida de jugador--");
+					//registrarSalidaDeJugador();
+					break;
+				case 5:
+					Ventana.mostrarMensaje("--Mostrar ingresos totales--");
+					//mostrarIngresosTotales();
+					break;
+			}
+		}while(i != 0);
+		
+	}
+
+	public void crearJugadorConstructor() {
+		String n, f;
+		long id,cod;
+		n = Ventana.pedirString("nombre");
+		id = Long.parseLong(Ventana.pedirString("identificación"));
+		f = Ventana.pedirString("fecha");
+		cod = Long.parseLong(Ventana.pedirString("codigo"));
+
+		objEstudianteJugador = new EstudianteJugador(n, id, f, cod);
+		objEstacion.setListaJugadores(objEstudianteJugador);
+	}
+
+	
+	/*
+	public void crearJugadorSetter() {
+		objEstudianteJugador.setNombre(Ventana.pedirString("nombre"));
+		objEstudianteJugador.setId(Long.parseLong(Ventana.pedirString("identificación")));
+		objEstudianteJugador.setFecha(Ventana.pedirString("fecha"));
+		objEstacion.setListaJugadores(objEstudianteJugador);
+	}
+	*/
+
+    private void asignarJugadorAEstacion() {
+        String nombreJugador = Ventana.pedirString("Ingrese el nombre del jugador a asignar");
+        
+        if(objEstacion.listaJugadores().getNombre().equals(nombreJugador)) {
+        
+        	objEstacion.setListaJugadores(objEstudianteJugador);
+        	System.out.println("El jugador fue asignado con exito");
+            
+        }else {
+        	System.out.println("El estudiante no existe en la lista.");
+        	
+        }
+    }
+
+    
+    private void agregarTiempoAJugador() {
+        String nombreJugador = Ventana.pedirString("Ingrese el nombre del jugador para agregar tiempo");
+        
+        if(objEstacion.listaJugadores().getNombre().equals(nombreJugador)) {
+            objEstudianteJugador.setTiempo(Integer.parseInt(Ventana.pedirString("Ingrese el tiempo a agregar en minutos")));
+            //agregar a jugador el atributo tiempo
+            Ventana.mostrarMensaje("Tiempo agregado correctamente.");
+        }else {
+        	System.out.println("El estudiante no existe en la lista.");
+        	
+        } 
+    }
+
+    /*
+    private void cambiarJugadorDeEstacion() {
+        String nombreJugador = Ventana.pedirString("Ingrese el nombre del jugador a cambiar de estación");
+        EstudianteJugador jugador = objEstacion.buscarJugadorPorNombre(nombreJugador);
+        if (jugador != null) {
+            objEstacion.removerJugador(jugador);
+            asignarJugadorAEstacion();
+        } else {
+            Ventana.mostrarMensaje("Jugador no encontrado.");
+        }
+    }
+
+    private void registrarSalidaDeJugador() {
+        String nombreJugador = Ventana.pedirString("Ingrese el nombre del jugador que sale");
+        EstudianteJugador jugador = objEstacion.buscarJugadorPorNombre(nombreJugador);
+        if (jugador != null) {
+            objEstacion.removerJugador(jugador);
+            Ventana.mostrarMensaje("Jugador ha salido de la estación.");
+        } else {
+            Ventana.mostrarMensaje("Jugador no encontrado.");
+        }
+    }
+
+    private void mostrarIngresosTotales() {
+        double ingresos = objEstacion.calcularIngresosTotales();
+        Ventana.mostrarMensaje("Los ingresos totales son: $" + ingresos);
+    }
+	
+	*/
+
+}
