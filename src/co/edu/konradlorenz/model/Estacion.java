@@ -13,9 +13,15 @@ public class Estacion {
 		this.listaJugadores = listaJugadores;
 	}
 
+	/*/ <- Añadir * en medio de las barras para comentar bloque
 	public Jugador getListaJugadores(int indice) {
 		return listaJugadores.get(indice);
 	}
+	//*/
+
+	public ArrayList<Jugador> getListaJugadores() {
+        return listaJugadores;
+    }
 
 	public void setListaJugadores(Jugador jugador) {
 		this.listaJugadores.add(jugador);
@@ -25,12 +31,14 @@ public class Estacion {
 		this.listaJugadores.remove(jugador);
 	}
 	
+	// <- Añadir * en medio de las barras para comentar bloque
 	public Jugador listaJugadores() {
         for (Jugador jugador: listaJugadores) {
             return jugador;
         }
 		return null;
     }
+	//*/
 	
 
 	@Override
