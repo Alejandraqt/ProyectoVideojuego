@@ -15,6 +15,13 @@ public abstract class Jugador implements ClienteVip {
 		this.fecha = fecha;
 	}
 
+	public Jugador(String nombre, long id, String fecha, int tiempo) {
+		this.nombre = nombre;
+		this.id = id;
+		this.fecha = fecha;
+		this.tiempo = tiempo;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
