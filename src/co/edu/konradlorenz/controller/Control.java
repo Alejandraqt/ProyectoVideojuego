@@ -89,7 +89,9 @@ public class Control {
         String nombreJugador = Ventana.pedirString("Ingrese el nombre del jugador para agregar tiempo");
         
         if(objEstacion.listaJugadores().getNombre().equals(nombreJugador)) {
-            objEstudianteJugador.setTiempo(Integer.parseInt(Ventana.pedirString("Ingrese el tiempo a agregar en minutos")));
+			int tiempoActual = objEstudianteJugador.getTiempo();
+			int tiempoNuevo = Integer.parseInt(Ventana.pedirString("Ingrese el tiempo a agregar en minutos"));
+            objEstudianteJugador.setTiempo(tiempoActual + tiempoNuevo);
             Ventana.mostrarMensaje("Tiempo agregado correctamente.");
         }else {
         	System.out.println("El estudiante no existe en la lista.");
