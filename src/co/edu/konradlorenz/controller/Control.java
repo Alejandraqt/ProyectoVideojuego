@@ -97,7 +97,7 @@ public class Control {
         	System.out.println("El estudiante no existe en la lista.");
         	
         } 
-        System.out.println(objEstacion.listaJugadores());
+        //System.out.println(objEstacion.listaJugadores()); //No hace falta mostrar toda lista
     }
 
     
