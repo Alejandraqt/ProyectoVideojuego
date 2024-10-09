@@ -1,5 +1,8 @@
 package co.edu.konradlorenz.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import co.edu.konradlorenz.model.*;
 import co.edu.konradlorenz.view.Ventana;
 
@@ -7,6 +10,10 @@ public class Control {
 	
 	protected EstudianteJugador objEstudianteJugador = new EstudianteJugador();
 	protected Estacion objEstacion = new Estacion();
+
+	protected LocalDateTime fechaHoraActual = LocalDateTime.now(); //Formato de LocalDate Time: YYYY-MM-DDTHH:MM:SS
+	protected DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"); //Formato más agradable a la vista.
+	protected String actualTime = fechaHoraActual.format(formato);
 
 	public void run() {
 		byte i = 0;
