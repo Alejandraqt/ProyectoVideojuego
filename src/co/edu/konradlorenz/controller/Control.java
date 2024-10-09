@@ -25,9 +25,9 @@ public class Control {
 					Ventana.mostrarMensaje("Saliendo...");
 					break;
 				case 1:
-					crearJugadorConstructor();
 					Ventana.mostrarMensaje("--Asignar jugador a estacion--");
-					asignarJugadorAEstacion();
+					crearJugadorConstructor();
+					//asignarJugadorAEstacion();
 					break;
 				case 2:
 					Ventana.mostrarMensaje("--Agregar tiempo a jugador--");
@@ -55,11 +55,11 @@ public class Control {
 		long id,cod;
 		n = Ventana.pedirString("Ingrese el nombre");
 		id = Long.parseLong(Ventana.pedirString("Ingrese la identificación"));
-		f = Ventana.pedirString("Ingrese lA fecha");
-		cod = Long.parseLong(Ventana.pedirString("Ingrese el codigo"));
+		f = Ventana.pedirString("Ingrese la fecha");
+		cod = Long.parseLong(Ventana.pedirString("Ingrese el código"));
 
-		objEstudianteJugador = new EstudianteJugador(n, id, f, cod);
-		objEstacion.setListaJugadores(objEstudianteJugador);
+		objEstudianteJugador = new EstudianteJugador(n, id, f, cod); //Se crea el EstudianteJugador
+		objEstacion.setListaJugadores(objEstudianteJugador); //Se añadé por primera vez a la estación
 	}
 
 	
@@ -87,7 +87,6 @@ public class Control {
         System.out.println(objEstacion.listaJugadores());
 
     }
-
     
     private void agregarTiempoAJugador() {
         String nombreJugador = Ventana.pedirString("Ingrese el nombre del jugador para agregar tiempo");
