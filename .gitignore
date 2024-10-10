@@ -1,8 +1,12 @@
 
+.metadata/
+
+.settings/
+
+bin/
+
+.classpath
+
 .project
-
-*.class
-
-bin/.classpath
 
 src/module-info.java
