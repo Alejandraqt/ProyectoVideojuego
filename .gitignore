@@ -4,3 +4,5 @@
 *.class
 
 bin/.classpath
+
+src/module-info.java
