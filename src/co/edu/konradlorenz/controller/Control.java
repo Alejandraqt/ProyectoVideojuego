@@ -85,8 +85,8 @@ public class Control {
 		long id,cod;
 		n = Ventana.pedirString("Ingrese el nombre");
 		id = Long.parseLong(Ventana.pedirString("Ingrese la identificación"));
-		f = Ventana.pedirString("Ingrese la fecha"); //Fecha manual
-		//f = getActualTime(); //Fecha automática
+		//f = Ventana.pedirString("Ingrese la fecha"); //Fecha manual
+		f = getActualTime(); //Fecha automática
 		cod = Long.parseLong(Ventana.pedirString("Ingrese el código"));
 
 		EstudianteJugador estudianteJugador = new EstudianteJugador(n, id, f, cod);
@@ -180,8 +180,8 @@ public class Control {
 				}
 			}else break;
 		}
-		String mensaje = found == true ? "Jugador ha salido de la estación." : "El jugador no existe."; //Fecha manual
-		//String mensaje = found == true ? "Jugador ha salido de la estación a las: " + getActualTime() : "El jugador no existe."; //Fecha automática
+		//String mensaje = found == true ? "Jugador ha salido de la estación." : "El jugador no existe."; //Fecha manual
+		String mensaje = found == true ? "Jugador ha salido de la estación a las: " + getActualTime() : "El jugador no existe."; //Fecha automática
 		Ventana.mostrarMensaje(mensaje);
     }
 
@@ -198,7 +198,7 @@ public class Control {
     	Ventana.mostrarMensaje("Los ingresos totales fueron: $" + total);
     }
 	
-	/*/ <- Agregar * entre barras para comentar el método.
+	// <- Agregar * entre barras para comentar el método.
 	private String getActualTime(){
 		LocalDateTime fechaHoraActual = LocalDateTime.now(); //Formato de LocalDate Time: YYYY-MM-DDTHH:MM:SS
 		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"); //Formato más agradable a la vista.
