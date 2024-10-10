@@ -48,7 +48,6 @@ public class Control {
 							Ventana.mostrarMensaje("Opción incorrecta.");
 							break;
 					}
-
 					break;
 				case 2:
 					Ventana.mostrarMensaje("--Agregar tiempo a jugador--");
@@ -79,7 +78,6 @@ public class Control {
 					break;
 			}
 		}while(i != 0);
-		
 	}
 
 	public EstudianteJugador crearJugadorConstructor() {
@@ -87,26 +85,14 @@ public class Control {
 		long id,cod;
 		n = Ventana.pedirString("Ingrese el nombre");
 		id = Long.parseLong(Ventana.pedirString("Ingrese la identificación"));
-		//f = Ventana.pedirString("Ingrese la fecha"); //Fecha manual
-		f = getActualTime(); //Fecha automática
+		f = Ventana.pedirString("Ingrese la fecha"); //Fecha manual
+		//f = getActualTime(); //Fecha automática
 		cod = Long.parseLong(Ventana.pedirString("Ingrese el código"));
 
 		EstudianteJugador estudianteJugador = new EstudianteJugador(n, id, f, cod);
 		return estudianteJugador;
-
-		//objEstacion.setListaJugadores(objEstudianteJugador);
 	}
 
-	
-	/*/ <- Añadir * en medio de las barras para comentar bloque
-	public void crearJugadorSetter() {
-		objEstudianteJugador.setNombre(Ventana.pedirString("nombre"));
-		objEstudianteJugador.setId(Long.parseLong(Ventana.pedirString("identificación")));
-		objEstudianteJugador.setFecha(Ventana.pedirString("fecha"));
-		objEstacion.setListaJugadores(objEstudianteJugador);
-	}
-	// */
-	
 	private Estacion crearNuevaEstacion(){
 		Ventana.mostrarMensaje("Creando nueva estación...");
 		Estacion nuevaEstacion = new Estacion();
@@ -121,32 +107,11 @@ public class Control {
 		return estacionSeleccionada;
 	}
 
-	/*/ <- Añadir * en medio de las barras para comentar bloque
-    private void asignarJugadorAEstacion() {
-        String nombreJugador = Ventana.pedirString("Ingrese el nombre del jugador a asignar");
-        
-        if(objEstacion.listaJugadores().getNombre().equals(nombreJugador)) {
-        
-        	objEstacion.setListaJugadores(objEstudianteJugador);
-        	System.out.println("El jugador fue asignado con exito");
-            
-        }else {
-        	System.out.println("El estudiante no existe en la lista.");
-        	
-        }
-        System.out.println(objEstacion.listaJugadores());
-
-    }
-	// */
-
-	// <- Añadir * en medio de las barras para comentar bloque
-    private void asignarJugadorAEstacion(Jugador jugador, Estacion estacionSeleccionada) {
+	private void asignarJugadorAEstacion(Jugador jugador, Estacion estacionSeleccionada) {
 		estacionSeleccionada.setListaJugadores(jugador);
 		Ventana.mostrarMensaje("El jugador fue asignado con exito");
     }
-	// */
 
-	// <- Añadir * en medio de las barras para comentar bloque
 	private void mostrarListaEstaciones() {
 		int i = 1;
 		for (Estacion estacion : listaEstaciones) {
@@ -154,82 +119,92 @@ public class Control {
 			i++;
 		}
     }
-	// */
 
     private void agregarTiempoAJugador() {
-        String nombreJugador = Ventana.pedirString("Ingrese el nombre del jugador para agregar tiempo");
-        
-        if(objEstacion.listaJugadores().getNombre().equals(nombreJugador)) {
-			int tiempoActual = objEstudianteJugador.getTiempo();
-			int tiempoNuevo = Integer.parseInt(Ventana.pedirString("Ingrese el tiempo a agregar en minutos"));
-            objEstudianteJugador.setTiempo(tiempoActual + tiempoNuevo);
-            Ventana.mostrarMensaje("Tiempo agregado correctamente.");
-        }else {
-        	System.out.println("El estudiante no existe en la lista.");
-        	
-        } 
-        //System.out.println(objEstacion.listaJugadores()); //No hace falta mostrar toda lista
+    	long idJugador = Long.parseLong(Ventana.pedirString("Ingrese la identificación del jugador para agregar tiempo"));
+		boolean found = false;
+
+    	for (Estacion estacion : listaEstaciones) {
+			if(found == false){
+				for (Jugador jugador : estacion.getListaJugadores()) {
+
+					if (jugador.getId() == idJugador) {
+						int tiempoActual = jugador.getTiempo();
+						int tiempoNuevo = Integer.parseInt(Ventana.pedirString("Ingrese el tiempo a agregar en minutos"));
+						jugador.setTiempo(tiempoActual + tiempoNuevo);
+						found = true;
+						break;
+					}
+				}
+			}else break;
+		}
+		String mensaje = found == true ? "Tiempo agregado correctamente.": "El jugador no existe.";
+		Ventana.mostrarMensaje(mensaje); 
     }
 
     
     private void cambiarJugadorDeEstacion() {
         long idJugador = Long.parseLong(Ventana.pedirString("Ingrese la identificación del jugador a cambiar de estación"));
-        
+        boolean found = false;
+
 		for (Estacion estacion : listaEstaciones) {
+			if(found == false){
+				for (Jugador jugador : estacion.getListaJugadores()) {
 
-			for (Jugador jugador : estacion.getListaJugadores()) {
-
-				if (jugador.getId() == idJugador) {
-					asignarJugadorAEstacion(jugador, seleccionarEstacion());
-					estacion.eliminarJugador(jugador);
-					break;
-            	} else {
-					Ventana.mostrarMensaje("El estudiante no existe en la lista.");
-					break;
+					if (jugador.getId() == idJugador) {
+						asignarJugadorAEstacion(jugador, seleccionarEstacion());
+						estacion.eliminarJugador(jugador);
+						found = true;
+						break;
+					}
 				}
-			}
-			break;
+			}else break;
 		}
-         
-        System.out.println(objEstacion.listaJugadores());
-        
+		String mensaje = found == true ? "El jugador ha sido cambiado de estación.": "El jugador no existe.";
+		Ventana.mostrarMensaje(mensaje); 
     }
 
     private void registrarSalidaDeJugador() {
-        String nombreJugador = Ventana.pedirString("Ingrese el nombre del jugador que sale");
-        
-        if(objEstacion.listaJugadores().getNombre().equals(nombreJugador)) {
-        	objEstacion.eliminarJugador(objEstudianteJugador);
-            Ventana.mostrarMensaje("Jugador ha salido de la estación.");
-        	
-        }else {
-        	System.out.println("El estudiante no existe en la lista.");
-        	
-        } 
-        System.out.println(objEstacion.listaJugadores());
+        long idJugador = Long.parseLong(Ventana.pedirString("Ingrese la identificación del jugador que sale"));
+		boolean found = false;
+
+		for (Estacion estacion : listaEstaciones) {
+			if(found == false){
+				for (Jugador jugador : estacion.getListaJugadores()) {
+
+					if (jugador.getId() == idJugador) {
+						estacion.eliminarJugador(jugador);
+						found = true;
+						break;
+					}
+				}
+			}else break;
+		}
+		String mensaje = found == true ? "Jugador ha salido de la estación." : "El jugador no existe."; //Fecha manual
+		//String mensaje = found == true ? "Jugador ha salido de la estación a las: " + getActualTime() : "El jugador no existe."; //Fecha automática
+		Ventana.mostrarMensaje(mensaje);
     }
 
     private void ingresosTotales() {
     	double total=0;
-    	
-    	if(objEstudianteJugador instanceof ClienteVip) {
-    		if(objEstudianteJugador.calcularDescuento(objEstudianteJugador.getTiempo())){
-        		 total += objEstudianteJugador.pagar(objEstudianteJugador.getTiempo())-ClienteVip.DESCUENTO;
-    		}else {
-    			total += objEstudianteJugador.pagar(objEstudianteJugador.getTiempo());
-    		}
-    	}else {
-    		total += objEstudianteJugador.pagar(objEstudianteJugador.getTiempo());
-    		
-    	}
-    	Ventana.mostrarMensaje("Los ingresos totales son: $" + total);
+
+		for (Estacion estacion : listaEstaciones) {
+
+			for (Jugador jugador : estacion.getListaJugadores()) {
+				total += jugador.pagar(jugador.getTiempo());
+			}
+			break;
+		}
+    	Ventana.mostrarMensaje("Los ingresos totales fueron: $" + total);
     }
 	
+	/*/ <- Agregar * entre barras para comentar el método.
 	private String getActualTime(){
 		LocalDateTime fechaHoraActual = LocalDateTime.now(); //Formato de LocalDate Time: YYYY-MM-DDTHH:MM:SS
 		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"); //Formato más agradable a la vista.
 		String actualTime = fechaHoraActual.format(formato);
 		return actualTime;
 	}
+	//*/
 
 }
