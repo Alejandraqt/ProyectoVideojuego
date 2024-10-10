@@ -1,12 +1,6 @@
 
 .metadata/
 
-.settings/
+.vscode/
 
-bin/
-
-.classpath
-
-.project
-
-src/module-info.java
+/bin/
